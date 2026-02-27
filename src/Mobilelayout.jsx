@@ -30,7 +30,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
                 (selectedYear <= r.endYear || r.endYear === null)
               )
               return (
-                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{ animationDelay: `${(index * 50) + 50}ms`}} key={index}>{role}</p>
+                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{ animationDelay: `${(index * 25) + 50}ms`}} key={index}>{role}</p>
               )
             })}
 
@@ -40,7 +40,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
           <div className="w-64 overflow-visible">
           {timeline.map((item, index) => (
             <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
-                style={{ animationDelay: `${(index * 50) + 150}ms` }} key={index}>
+                style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index}>
               {item.role}, {item.company}           
             </p>
           ))}
@@ -56,7 +56,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
                 (selectedYear <= l.endYear || l.endYear === null)
               )
               return (
-                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{animationDelay: `${( index * 50 ) + 450}ms` }} key={index}>
+                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{animationDelay: `${( index * 25 ) + 225}ms` }} key={index}>
                   {location}
                 </p>
               )
