@@ -6,8 +6,8 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
     const tickPosition = ((2026 - selectedYear) / (2026 - 2015)) * 100
     const roles = ["Software Engineer", "Game Dev"]
   return (
-     <div className="h-screen m-0 flex flex-col items-center overflow-visible justify-center">
-      <div className="flex m-auto gap-[2em] overflow-visible">
+     <div className="min-h-screen m-0 flex flex-col items-center justify-center"  style={{ minHeight: '100dvh' }}>
+      <div className="flex w-fit m-auto gap-[2em]">
          <div className="relative flex flex-col h-full">
           <div className="flex-[25%] border-r-1 border-solid"></div>
           <div className="flex-[25%] border-r-1 border-dashed"></div>
@@ -37,7 +37,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
           </div>
 
           {/* ROLES */}
-          <div className="">
+          <div className="w-64">
           {timeline.map((item, index) => (
             <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
                 style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>
