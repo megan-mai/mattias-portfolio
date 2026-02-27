@@ -32,10 +32,6 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
                 <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{ animationDelay: `${(index * 100) +100}ms`}} key={index}>{role}</p>
               )
             })}
-              
-              
-            
-
 
           </div>
 
