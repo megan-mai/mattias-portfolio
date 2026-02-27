@@ -37,7 +37,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
           </div>
 
           {/* ROLES */}
-          <div className="w-64">
+          <div className="w-64 overflow-visible">
           {timeline.map((item, index) => (
             <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
                 style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>
