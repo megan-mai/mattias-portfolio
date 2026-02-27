@@ -6,7 +6,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
     const tickPosition = ((2026 - selectedYear) / (2026 - 2015)) * 100
     const roles = ["Software Engineer", "Game Dev"]
   return (
-     <div className="min-h-screen m-0 flex flex-col items-center justify-center"  style={{ minHeight: '100dvh' }}>
+     <div className="h-screen m-0 flex flex-col items-center justify-center">
       <div className="flex w-fit m-auto gap-[2em]">
          <div className="relative flex flex-col h-full">
           <div className="flex-[25%] border-r-1 border-solid"></div>
