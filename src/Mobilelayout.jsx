@@ -30,7 +30,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
                 (selectedYear <= r.endYear || r.endYear === null)
               )
               return (
-                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{ animationDelay: `${(index * 100) +100}ms`}} key={index}>{role}</p>
+                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{ animationDelay: `${(index * 50) + 50}ms`}} key={index}>{role}</p>
               )
             })}
 
@@ -40,7 +40,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
           <div className="w-64 overflow-visible">
           {timeline.map((item, index) => (
             <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
-                style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>
+                style={{ animationDelay: `${(index * 50) + 150}ms` }} key={index}>
               {item.role}, {item.company}           
             </p>
           ))}
@@ -56,14 +56,14 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
                 (selectedYear <= l.endYear || l.endYear === null)
               )
               return (
-                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{animationDelay: `${(index*100) + 900}ms` }} key={index}>
+                <p className={isActive ? "text-black fade-in" : "text-zinc-300 fade-in"} style={{animationDelay: `${( index * 50 ) + 450}ms` }} key={index}>
                   {location}
                 </p>
               )
         })}
           </div>
 
-          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '1200ms'}}>
+          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '600ms'}}>
             mattiasl380@gmail.com 
             <svg className='mx-[2px] mt-[2px]' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
           </a>
