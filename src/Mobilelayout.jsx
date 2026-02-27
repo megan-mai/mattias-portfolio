@@ -63,7 +63,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
         })}
           </div>
 
-          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '300ms'}}>
+          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '100ms'}}>
             mattiasl380@gmail.com 
             <svg className='mx-[2px] mt-[2px]' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
           </a>
@@ -72,8 +72,8 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
 
       {showPrompt ? (
               <p className={showPrompt ? "prompt-pulse fixed bottom-10 left-1/2 -translate-x-1/2 italic" : "prompt-fadeout fixed bottom-10 left-1/2 -translate-x-1/2 italic"}>
-  Scroll to explore
-</p>
+                Scroll to explore
+              </p>
         ) : <p className="fixed bottom-10 left-1/2 -translate-x-1/2 text-black italic">{selectedYear}</p>}
   </div>
   )
