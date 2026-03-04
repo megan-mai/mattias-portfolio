@@ -13,6 +13,7 @@ function App() {
   let touchStartY = 0
 
 
+
   const handleScroll = (e) => {
     e.preventDefault()
     const now = Date.now()
@@ -21,7 +22,7 @@ function App() {
     setShowPrompt(false) //for the prompt
 
     if (e.deltaY > 0) {
-      setSelectedYear(prev => Math.max(prev - 1, 2015))
+      setSelectedYear(prev => Math.max(prev - 1, 2014))
     } else {
       setSelectedYear(prev => Math.min(prev + 1, 2026))
     }
@@ -38,7 +39,7 @@ function App() {
     touchStartY = e.touches[0].clientY
     setShowPrompt(false)
     if (diff > 0) {
-      setSelectedYear(prev => Math.max(prev - 1, 2015))
+      setSelectedYear(prev => Math.max(prev - 1, 2014))
     } else {
       setSelectedYear(prev => Math.min(prev + 1, 2026))
     }

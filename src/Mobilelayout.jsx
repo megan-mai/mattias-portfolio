@@ -3,7 +3,7 @@ import { timeline } from './data.js'
 // eslint-disable-next-line
 function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt }) {
     const uniqueLocations = [...new Set(timeline.map(l => l.location))]
-    const tickPosition = ((2026 - selectedYear) / (2026 - 2015)) * 100
+    const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
     const roles = ["Software Engineer", "Game Dev"]
   return (
 <div className="flex flex-col items-center justify-center overflow-hidden" style={{ height: '100dvh' }}>

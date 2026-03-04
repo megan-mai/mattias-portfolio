@@ -1,9 +1,10 @@
 import { timeline } from './data.js'
+import YearWheel from './YearWheel'
 
 function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt }) {
   const uniqueLocations = [...new Set(timeline.map(l => l.location))]
-  const years = Array.from({ length: 12 }, (_, i) => 2026 - i)
-  const tickPosition = ((2026 - selectedYear) / (2026 - 2015)) * 100
+  const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
+  const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
   const roles = ["Software Engineer", "Game Dev"]
 
   return (
@@ -11,14 +12,7 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
     <div className="h-screen m-0 flex flex-col items-center justify-center">
       <div className="flex w-fit m-auto gap-[2em] ">
 
-        {/* YEARS  */}
-        <div className="text-zinc-300 flex flex-col justify-center p-1">
-          <div className="leading-[1.5] cursor-pointer">
-          {years.map((year, index) => (
-            <p onMouseEnter={() => {setSelectedYear(year), setShowPrompt(false)}} className={selectedYear == year ? "hover:text-black text-black fade-in" : "hover:text-black text-zinc-300 fade-in"} style={{ animationDelay: `${index * 100}ms`}} key={index}> {year} </p>
-          ))}
-          </div>
-        </div>
+        <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} />
         
           
         <div className="relative flex flex-col h-full">
