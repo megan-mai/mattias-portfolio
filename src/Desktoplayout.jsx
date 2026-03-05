@@ -2,8 +2,8 @@ import { timeline } from './data.js'
 import YearWheel from './YearWheel'
 
 function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt }) {
-  const uniqueLocations = [...new Set(timeline.map(l => l.location))]
   const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
+  const uniqueLocations = [...new Set(timeline.map(l => l.location))]
   const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
   const roles = ["Software Engineer", "Game Dev"]
 
@@ -15,12 +15,22 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
         <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} />
         
           
-        <div className="relative flex flex-col h-full">
+        <div className="relative flex flex-col h-full px-4 -mx-4 cursor-pointer"
+        
+        onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        const relativeY = e.clientY - rect.top
+        const percent = relativeY / rect.height
+        const yearIndex = Math.round(percent * (years.length - 1))
+        const year = years[yearIndex]
+        setSelectedYear(year)
+        setShowPrompt(false)
+      }}>
           <div className="flex-[25%] border-r-1 border-solid"></div>
           <div className="flex-[25%] border-r-1 border-dashed"></div>
           <div className="flex-[50%] border-r-1 border-dotted"></div>
           <div 
-            className="absolute w-[5px] h-[5px] bg-black rounded-full -right-[2px] transition-all duration-200"
+            className="absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px]"
             style={{ top: `${tickPosition}%` }}
           />    
         </div>
@@ -29,7 +39,7 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
 
           {/* Name + Profession */}
           <div className="text-zinc-300">
-            <p className="text-black fade-in" style={{ animationDelay: '0ms'}}>Mattias /mɑːˈtiːɑːs/ </p>
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&
@@ -49,7 +59,8 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
           {/* ROLES */}
           <div className="w-64">
           {timeline.map((item, index) => (
-            <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
+            <p  
+                className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in cursor-pointer" : "text-zinc-300 flex fade-in cursor-pointer"} 
                 style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>
               {item.role}, {item.company}           
             </p>

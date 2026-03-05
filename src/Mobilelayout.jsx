@@ -22,7 +22,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
 
          {/* Name + Profession */}
           <div className="text-zinc-300">
-            <p className="text-black fade-in" style={{ animationDelay: '0ms'}}>Mattias /mɑːˈtiːɑːs/ </p>
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&

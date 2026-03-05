@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-function YearWheel({ selectedYear, setSelectedYear, setShowPrompt }) {
+function YearWheel({ selectedYear, setSelectedYear}) {
   const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
   const repeated = [...years, ...years, ...years]
   const selectedIndexRef = useRef(years.length) // start in middle repeat
@@ -33,12 +33,6 @@ function YearWheel({ selectedYear, setSelectedYear, setShowPrompt }) {
     })
   }
 
-  function step(dir) {
-    selectedIndexRef.current += dir
-    if (setShowPrompt) setShowPrompt(false)
-    render()
-  }
-
   useEffect(() => {
     render()
   }, [])
@@ -51,7 +45,7 @@ function YearWheel({ selectedYear, setSelectedYear, setShowPrompt }) {
 }, [selectedYear])
 
   return (
-    <div ref={pickerRef} className="overflow-hidden cursor-pointer" style={{ height: itemHeight * 13 }}>
+    <div ref={pickerRef} className="overflow-hidden " style={{ height: itemHeight * 13 }}>
       <div ref={listRef} className="relative">
         {repeated.map((year, i) => (
           <div
