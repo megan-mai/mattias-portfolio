@@ -54,6 +54,7 @@ button:focus-visible {
 .fade-in {
   opacity: 0;
   animation: fadeIn 0.05s linear forwards;
+  animation-delay: 5s;
 }
 
 @keyframes pulse {
@@ -73,3 +74,15 @@ button:focus-visible {
 .prompt-fadeout {
   animation: fadeOut 0.5s ease forwards;
 }
+
+@keyframes expandLine {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0% 0); }
+}
+
+.expand-line {
+  clip-path: inset(0 0 100% 0);
+  animation: expandLine 1s linear forwards;
+  transform-origin: top;
+}
+

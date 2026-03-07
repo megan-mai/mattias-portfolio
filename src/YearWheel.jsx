@@ -45,7 +45,7 @@ function YearWheel({ selectedYear, setSelectedYear}) {
 }, [selectedYear])
 
   return (
-    <div ref={pickerRef} className="overflow-hidden " style={{ height: itemHeight * 13 }}>
+    <div ref={pickerRef} className="overflow-hidden googl" style={{ height: itemHeight * 13 }}>
       <div ref={listRef} className="relative">
         {repeated.map((year, i) => (
           <div

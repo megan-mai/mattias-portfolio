@@ -14,9 +14,8 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
 
         <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} />
         
-          
-        <div className="relative flex flex-col h-full px-4 -mx-4 cursor-pointer"
-        
+        {/* Line */}
+        <div className="relative flex flex-col h-full px-4 -mx-4 cursor-pointer expand-line"
         onMouseMove={(e) => {
         const rect = e.currentTarget.getBoundingClientRect()
         const relativeY = e.clientY - rect.top
@@ -30,7 +29,7 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
           <div className="flex-[25%] border-r-1 border-dashed"></div>
           <div className="flex-[50%] border-r-1 border-dotted"></div>
           <div 
-            className="absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px]"
+            className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px]"
             style={{ top: `${tickPosition}%` }}
           />    
         </div>

@@ -6,16 +6,17 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
     const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
     const roles = ["Software Engineer", "Game Dev"]
   return (
-<div className="flex flex-col items-center justify-center overflow-hidden" style={{ height: '100dvh' }}>
+<div className="flex flex-col items-center justify-center" style={{ height: '100dvh' }}>
       <div className="flex w-fit m-auto gap-[2em]">
          <div className="relative flex flex-col h-full">
-          <div className="flex-[25%] border-r-1 border-solid"></div>
-          <div className="flex-[25%] border-r-1 border-dashed"></div>
-          <div className="flex-[50%] border-r-1 border-dotted"></div>
-          <div 
+           <div className="flex-[25%] flex-1 expand-line" style={{ borderRight: '1px solid black' }} />
+          <div className="flex-[25%] flex-1 expand-line" style={{ borderRight: '1px dashed black', animationDelay: '1s' }} />
+          <div className="flex-[50%] flex-1 expand-line" style={{ borderRight: '1px dotted black', animationDelay: '2.0s' }} />
+                  <div 
             className="absolute w-[5px] h-[5px] bg-black rounded-full -right-[2px] transition-all duration-200"
             style={{ top: `${tickPosition}%` }}
-          />    
+          />  
+          
         </div>
 
         <div className="flex flex-col gap-y-4 justify-center">
