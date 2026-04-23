@@ -13,7 +13,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
           <div className="flex-[25%] flex-1 expand-line" style={{ borderRight: '1px dashed black', animationDelay: '1s' }} />
           <div className="flex-[50%] flex-1 expand-line" style={{ borderRight: '1px dotted black', animationDelay: '2.0s' }} />
                   <div 
-            className="absolute w-[5px] h-[5px] bg-black rounded-full -right-[2px] transition-all duration-200"
+            className="absolute w-[5px] h-[5px] bg-black rounded-full -right-[2px] transition-all duration-200 -translate-y-1/2"
             style={{ top: `${tickPosition}%` }}
           />  
           
@@ -23,7 +23,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
 
          {/* Name + Profession */}
           <div className="text-zinc-300">
-            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&
@@ -39,12 +39,15 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
 
           {/* ROLES */}
           <div className="w-64 overflow-visible">
-          {timeline.map((item, index) => (
-            <p className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in" : "text-zinc-300 flex fade-in"} 
-                style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index}>
-              {item.role}, {item.company}           
-            </p>
-          ))}
+          {timeline.map((item, index) => {
+            const isActive = selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null)
+            const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in`
+            const content = <>{item.role}, {item.company}{item.url && <svg className='mx-[2px] mt-[6px] opacity-0 group-hover:opacity-100' xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" stroke="currentColor" strokeWidth="16" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
+            const hoverProps = { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } }
+            return item.url
+              ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index} {...hoverProps}>{content}</a>
+              : <p className={`${className} group`} style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index} {...hoverProps}>{content}</p>
+          })}
           </div>
 
           
@@ -64,7 +67,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
         })}
           </div>
 
-          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '100ms'}}>
+          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:no-underline" style={{ animationDelay: '100ms'}}>
             mattiasl380@gmail.com 
             <svg className='mx-[2px] mt-[2px]' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
           </a>

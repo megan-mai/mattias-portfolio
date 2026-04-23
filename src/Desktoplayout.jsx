@@ -10,26 +10,17 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
   return (
    
     <div className="h-screen m-0 flex flex-col items-center justify-center">
-      <div className="flex w-fit m-auto gap-[2em] ">
+      <div className="flex w-fit m-auto gap-[2em] items-center">
 
         <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} />
         
         {/* Line */}
-        <div className="relative flex flex-col h-full px-4 -mx-4 cursor-pointer expand-line"
-        onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        const relativeY = e.clientY - rect.top
-        const percent = relativeY / rect.height
-        const yearIndex = Math.round(percent * (years.length - 1))
-        const year = years[yearIndex]
-        setSelectedYear(year)
-        setShowPrompt(false)
-      }}>
-          <div className="flex-[25%] border-r-1 border-solid"></div>
-          <div className="flex-[25%] border-r-1 border-dashed"></div>
-          <div className="flex-[50%] border-r-1 border-dotted"></div>
+        <div className="relative flex flex-col h-full px-4 -mx-4">
+          <div className="flex-[25%] border-r-1 border-solid expand-line"></div>
+          <div className="flex-[25%] border-r-1 border-dashed expand-line" style={{ animationDelay: '1s' }}></div>
+          <div className="flex-[50%] border-r-1 border-dotted expand-line" style={{ animationDelay: '2s' }}></div>
           <div 
-            className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px]"
+            className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px] -translate-y-1/2"
             style={{ top: `${tickPosition}%` }}
           />    
         </div>
@@ -37,8 +28,8 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
         <div className="flex flex-col gap-y-4 justify-center">
 
           {/* Name + Profession */}
-          <div className="text-zinc-300">
-            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
+          <div className="text-zinc-300 leading-snug">
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&
@@ -56,18 +47,20 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
           </div>
 
           {/* ROLES */}
-          <div className="w-64">
-          {timeline.map((item, index) => (
-            <p  
-                className={selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null) ? "text-black flex fade-in cursor-pointer" : "text-zinc-300 flex fade-in cursor-pointer"} 
-                style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>
-              {item.role}, {item.company}           
-            </p>
-          ))}
+          <div className="w-64 leading-snug">
+          {timeline.map((item, index) => {
+            const isActive = selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null)
+            const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in cursor-pointer`
+            const content = <>{item.role}, {item.company}{item.url && <svg className='mx-[2px] mt-[6px] opacity-0 group-hover:opacity-100' xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" stroke="currentColor" strokeWidth="16" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
+            const hoverProps = { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } }
+            return item.url
+              ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</a>
+              : <p className={`${className} group`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</p>
+          })}
           </div>
 
           {/* LOCATIONS */}
-          <div className="text-zinc-300">
+          <div className="text-zinc-300 leading-snug">
           {uniqueLocations.map((location, index) => {
               const isActive = timeline.some(l => 
                 l.location === location && 
@@ -82,7 +75,7 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
         })}
           </div>
 
-          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:underline" style={{ animationDelay: '1200ms'}}>
+          <a href="mailto:mattiasl380@gmail.com" className="flex flew-row items-center cursor-pointer fade-in hover:no-underline" style={{ animationDelay: '1200ms'}}>
             mattiasl380@gmail.com 
             <svg className='mx-[2px] mt-[2px]' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
           </a>
