@@ -82,7 +82,7 @@ button:focus-visible {
 
 .expand-line {
   clip-path: inset(0 0 100% 0);
-  animation: expandLine 1s linear forwards;
+  animation: expandLine 0.2s linear forwards;
   transform-origin: top;
 }
 

@@ -1,7 +1,13 @@
+import { useState, useEffect } from 'react'
 import { timeline } from './data.js'
 import YearWheel from './YearWheel'
 
 function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt }) {
+  const [loaded, setLoaded] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 1300)
+    return () => clearTimeout(t)
+  }, [])
   const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
   const uniqueLocations = [...new Set(timeline.map(l => l.location))]
   const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
@@ -12,13 +18,13 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
     <div className="h-screen m-0 flex flex-col items-center justify-center">
       <div className="flex w-fit m-auto gap-[2em] items-center">
 
-        <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} />
+        <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} loaded={loaded} />
         
         {/* Line */}
         <div className="relative flex flex-col h-full px-4 -mx-4">
           <div className="flex-[25%] border-r-1 border-solid expand-line"></div>
-          <div className="flex-[25%] border-r-1 border-dashed expand-line" style={{ animationDelay: '1s' }}></div>
-          <div className="flex-[50%] border-r-1 border-dotted expand-line" style={{ animationDelay: '2s' }}></div>
+          <div className="flex-[25%] border-r-1 border-dashed expand-line" style={{ animationDelay: '0.2s' }}></div>
+          <div className="flex-[50%] border-r-1 border-dotted expand-line" style={{ animationDelay: '0.4s' }}></div>
           <div 
             className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px] -translate-y-1/2"
             style={{ top: `${tickPosition}%` }}
@@ -52,7 +58,7 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
             const isActive = selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null)
             const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in cursor-pointer`
             const content = <>{item.role}, {item.company}{item.url && <svg className='mx-[2px] mt-[6px] opacity-0 group-hover:opacity-100' xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" stroke="currentColor" strokeWidth="16" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
-            const hoverProps = { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } }
+            const hoverProps = loaded ? { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } } : {}
             return item.url
               ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</a>
               : <p className={`${className} group`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</p>

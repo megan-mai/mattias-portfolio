@@ -1,4 +1,4 @@
-function YearWheel({ selectedYear, setSelectedYear, setShowPrompt }) {
+function YearWheel({ selectedYear, setSelectedYear, setShowPrompt, loaded }) {
   const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
 
   return (
@@ -6,8 +6,8 @@ function YearWheel({ selectedYear, setSelectedYear, setShowPrompt }) {
       {years.map(year => (
         <div
           key={year}
-          className={`cursor-pointer leading-normal ${year === selectedYear ? ' text-black' : 'text-zinc-300'}`}
-          onMouseEnter={() => { setSelectedYear(year); setShowPrompt(false) }}
+          className={`cursor-pointer leading-snug ${year === selectedYear ? ' text-black' : 'text-zinc-300'}`}
+          onMouseEnter={loaded ? () => { setSelectedYear(year); setShowPrompt(false) } : undefined}
         >
           {year}
         </div>
