@@ -6,7 +6,7 @@ function YearWheel({ selectedYear, setSelectedYear, setShowPrompt, loaded }) {
       {years.map(year => (
         <div
           key={year}
-          className={`cursor-pointer leading-snug ${year === selectedYear ? ' text-black' : 'text-zinc-300'}`}
+          className={`cursor-pointer leading-normal ${year === selectedYear ? ' text-black' : 'text-zinc-300'}`}
           onMouseEnter={loaded ? () => { setSelectedYear(year); setShowPrompt(false) } : undefined}
         >
           {year}

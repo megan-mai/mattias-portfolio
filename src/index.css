@@ -72,7 +72,7 @@ button:focus-visible {
 }
 
 .prompt-fadeout {
-  animation: fadeOut 0.5s ease forwards;
+  animation: fadeOut 2s ease forwards;
 }
 
 @keyframes expandLine {
