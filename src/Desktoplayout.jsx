@@ -1,16 +1,8 @@
-import { useState, useEffect } from 'react'
 import { timeline } from './data.js'
 import YearWheel from './YearWheel'
 
-function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt }) {
-  const [loaded, setLoaded] = useState(false)
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1300)
-    return () => clearTimeout(t)
-  }, [])
-  const years = Array.from({ length: 13 }, (_, i) => 2026 - i)
+function DesktopLayout({ selectedYear }) {
   const uniqueLocations = [...new Set(timeline.map(l => l.location))]
-  const tickPosition = ((2026 - selectedYear) / (2026 - 2014)) * 100
   const roles = ["Software Engineer", "Game Dev"]
 
   return (
@@ -18,17 +10,17 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
     <div className="h-screen m-0 flex flex-col items-center justify-center">
       <div className="flex w-fit m-auto gap-[2em] items-center">
 
-        <YearWheel selectedYear={selectedYear} setSelectedYear={setSelectedYear} setShowPrompt={setShowPrompt} loaded={loaded} />
+        <YearWheel selectedYear={selectedYear} />
         
         {/* Line */}
         <div className="relative flex flex-col h-full px-4 -mx-4">
           <div className="flex-[25%] border-r-1 border-solid expand-line"></div>
           <div className="flex-[25%] border-r-1 border-dashed expand-line" style={{ animationDelay: '0.2s' }}></div>
           <div className="flex-[50%] border-r-1 border-dotted expand-line" style={{ animationDelay: '0.4s' }}></div>
-          <div 
+          <div
             className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px] -translate-y-1/2"
-            style={{ top: `${tickPosition}%` }}
-          />    
+            style={{ top: `${((2026 - selectedYear) / (2026 - 2014)) * 100}%` }}
+          />
         </div>
 
         <div className="flex flex-col gap-y-4 justify-center">
@@ -56,12 +48,11 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
           <div className="w-64 leading-snug">
           {timeline.map((item, index) => {
             const isActive = selectedYear >= item.startYear && (selectedYear <= item.endYear || item.endYear == null)
-            const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in cursor-pointer`
-            const content = <>{item.role}, {item.company}{item.url && <svg className='mx-[2px] mt-[6px] opacity-0 group-hover:opacity-100' xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" stroke="currentColor" strokeWidth="8" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
-            const hoverProps = loaded ? { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } } : {}
-            return item.url
-              ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</a>
-              : <p className={`${className} group`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index} {...hoverProps}>{content}</p>
+            const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in`
+            const content = <>{item.role}, {item.company}{item.url && <svg className={`mx-[2px] mt-[6px] transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`} xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" stroke="currentColor" strokeWidth="8" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
+              return item.url
+              ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>{content}</a>
+              : <p className={`${className} group`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>{content}</p>
           })}
           </div>
 
@@ -88,9 +79,6 @@ function DesktopLayout({ selectedYear, setSelectedYear, showPrompt, setShowPromp
         </div>
       </div>
 
-      <p className={showPrompt ? "prompt-pulse fixed bottom-10 left-1/2 -translate-x-1/2 italic" : "prompt-fadeout fixed bottom-10 left-1/2 -translate-x-1/2 italic"}>
-  Scroll or hover to explore
-</p>
   </div>
     )
 }

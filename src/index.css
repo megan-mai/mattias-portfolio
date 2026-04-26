@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  cursor: none !important;
+}
+
 :root {
   font-family: Arial;
   font-weight: 100;
@@ -84,5 +88,34 @@ button:focus-visible {
   clip-path: inset(0 0 100% 0);
   animation: expandLine 0.2s linear forwards;
   transform-origin: top;
+}
+
+@keyframes overlayFadeOut {
+  to { opacity: 0; }
+}
+
+.onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  pointer-events: auto;
+  animation: fadeIn 0.6s ease both 1.3s;
+}
+
+.onboarding-overlay.onboarding-overlay-out {
+  animation: overlayFadeOut 0.6s ease forwards;
+  pointer-events: none;
+}
+
+.onboarding-text {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+  padding: 0 2rem;
+  animation: pulse 1.5s ease 1.9s infinite;
 }
 
