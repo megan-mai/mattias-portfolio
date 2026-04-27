@@ -9,6 +9,7 @@ function App() {
   const [showPrompt, setShowPrompt] = useState(true)
   const selectedYearRef = useRef(selectedYear)
   const showPromptRef = useRef(true)
+  const promptStartTime = useRef(Date.now())
 
   useEffect(() => { selectedYearRef.current = selectedYear }, [selectedYear])
   useEffect(() => { showPromptRef.current = showPrompt }, [showPrompt])
@@ -22,7 +23,7 @@ function App() {
       const now = Date.now()
       if (now - lastScroll < 200) return
       lastScroll = now
-      setShowPrompt(false)
+      if (Date.now() - promptStartTime.current >= 2000) setShowPrompt(false)
 
       if (e.deltaY > 0) {
         setSelectedYear(prev => Math.max(prev - 1, 2014))
@@ -40,7 +41,7 @@ function App() {
       const diff = touchStartY - e.touches[0].clientY
       if (Math.abs(diff) < 30) return
       touchStartY = e.touches[0].clientY
-      setShowPrompt(false)
+      if (Date.now() - promptStartTime.current >= 2000) setShowPrompt(false)
       if (diff > 0) {
         setSelectedYear(prev => Math.max(prev - 1, 2014))
       } else {
@@ -50,6 +51,7 @@ function App() {
 
     const handleClick = (e) => {
       if (showPromptRef.current) {
+        if (Date.now() - promptStartTime.current < 2000) return
         setShowPrompt(false)
         return
       }
