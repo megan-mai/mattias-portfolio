@@ -4,6 +4,8 @@ import DesktopLayout from './Desktoplayout.jsx';
 import MobileLayout from './Mobilelayout.jsx';
 import { timeline } from './data.js'
 
+const snapYears = [2026, ...timeline.map(item => item.startYear)].sort((a, b) => b - a)
+
 function App() {
   const [selectedYear, setSelectedYear] = useState(2026);
   const [showPrompt, setShowPrompt] = useState(true)
@@ -21,15 +23,15 @@ function App() {
     const handleScroll = (e) => {
       e.preventDefault()
       const now = Date.now()
-      if (now - lastScroll < 200) return
+      if (now - lastScroll < 400) return
       lastScroll = now
       if (Date.now() - promptStartTime.current >= 2000) setShowPrompt(false)
 
-      if (e.deltaY > 0) {
-        setSelectedYear(prev => Math.max(prev - 1, 2014))
-      } else {
-        setSelectedYear(prev => Math.min(prev + 1, 2026))
-      }
+      setSelectedYear(prev => {
+        const idx = snapYears.indexOf(prev)
+        const i = idx === -1 ? 0 : idx
+        return e.deltaY > 0 ? snapYears[Math.min(i + 1, snapYears.length - 1)] : snapYears[Math.max(i - 1, 0)]
+      })
     }
 
     const handleTouchStart = (e) => {
@@ -42,11 +44,11 @@ function App() {
       if (Math.abs(diff) < 30) return
       touchStartY = e.touches[0].clientY
       if (Date.now() - promptStartTime.current >= 2000) setShowPrompt(false)
-      if (diff > 0) {
-        setSelectedYear(prev => Math.max(prev - 1, 2014))
-      } else {
-        setSelectedYear(prev => Math.min(prev + 1, 2026))
-      }
+      setSelectedYear(prev => {
+        const idx = snapYears.indexOf(prev)
+        const i = idx === -1 ? 0 : idx
+        return diff > 0 ? snapYears[Math.min(i + 1, snapYears.length - 1)] : snapYears[Math.max(i - 1, 0)]
+      })
     }
 
     const handleClick = (e) => {
@@ -62,19 +64,32 @@ function App() {
         (year <= item.endYear || item.endYear === null) &&
         item.url
       )
-      if (activeItem) window.open(activeItem.url, '_blank', 'noopener,noreferrer')
+      if (activeItem) window.location.href = activeItem.url
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
+      e.preventDefault()
+      if (Date.now() - promptStartTime.current >= 2000) setShowPrompt(false)
+      setSelectedYear(prev => {
+        const idx = snapYears.indexOf(prev)
+        const i = idx === -1 ? 0 : idx
+        return e.key === 'ArrowDown' ? snapYears[Math.min(i + 1, snapYears.length - 1)] : snapYears[Math.max(i - 1, 0)]
+      })
     }
 
     window.addEventListener('wheel', handleScroll, { passive: false })
     window.addEventListener('touchstart', handleTouchStart, { passive: false })
     window.addEventListener('touchmove', handleTouchMove, { passive: false })
     window.addEventListener('click', handleClick)
+    window.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('wheel', handleScroll)
       window.removeEventListener('touchstart', handleTouchStart)
       window.removeEventListener('touchmove', handleTouchMove)
       window.removeEventListener('click', handleClick)
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])
 

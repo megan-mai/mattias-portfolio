@@ -15,20 +15,18 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
 <div className="flex flex-col items-center justify-center" style={{ height: '100dvh' }}>
       <div className="flex w-fit m-auto gap-[1em]">
          <div className="relative flex flex-col h-full">
-           <div className="flex-[25%] flex-1 expand-line" style={{ borderRight: '1px solid black' }} />
-          <div className="flex-[25%] flex-1 expand-line" style={{ borderRight: '1px dashed black', animationDelay: '0.2s' }} />
-          <div className="flex-[50%] flex-1 expand-line" style={{ borderRight: '1px dotted black', animationDelay: '0.4s' }} />
-                  <div 
-            className="absolute w-[5px] h-[5px] bg-black rounded-full -right-[2px] transition-all duration-200 -translate-y-1/2"
-            style={{ top: `${tickPosition}%` }}
-          />  
+           <div className="flex-1 expand-line" style={{ borderRight: '1px dashed black' }} />
+          <div
+            className="absolute bottom-0 left-0 right-0 transition-all duration-200"
+            style={{ height: `${tickPosition}%`, borderRight: '1px solid black' }}
+          />
         </div>
 
         <div className="flex flex-col gap-y-4 justify-center">
 
          {/* Name + Profession */}
           <div className="text-zinc-300 leading-snug">
-            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&
@@ -50,7 +48,7 @@ function MobileLayout({ selectedYear, setSelectedYear, showPrompt, setShowPrompt
             const content = <>{item.role}, {item.company}{item.url && <svg className={`mx-[2px] self-center h-[1em] w-[1em] transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`} xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" strokeWidth="8" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
             const hoverProps = loaded ? { onMouseEnter: () => { setSelectedYear(item.endYear ?? 2026); setShowPrompt(false) } } : {}
             return item.url
-              ? <a href={item.url} target="_blank" rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index} {...hoverProps}>{content}</a>
+              ? <a href={item.url} className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index} {...hoverProps}>{content}</a>
               : <p className={`${className} group`} style={{ animationDelay: `${(index * 25) + 75}ms` }} key={index} {...hoverProps}>{content}</p>
           })}
           </div>

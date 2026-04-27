@@ -14,12 +14,10 @@ function DesktopLayout({ selectedYear }) {
         
         {/* Line */}
         <div className="relative flex flex-col h-full px-4 -mx-4">
-          <div className="flex-[25%] border-r-1 border-solid expand-line"></div>
-          <div className="flex-[25%] border-r-1 border-dashed expand-line" style={{ animationDelay: '0.2s' }}></div>
-          <div className="flex-[50%] border-r-1 border-dotted expand-line" style={{ animationDelay: '0.4s' }}></div>
+          <div className="flex-1 border-r border-dotted expand-line" />
           <div
-            className="dot absolute w-[5px] h-[5px] bg-black rounded-full transition-all duration-200 right-[14px] -translate-y-1/2"
-            style={{ top: `${((2026 - selectedYear) / (2026 - 2014)) * 100}%` }}
+            className="absolute bottom-0 left-0 right-4 border-r border-solid transition-all duration-200"
+            style={{ height: `${((2026 - selectedYear) / (2026 - 2014)) * 100}%` }}
           />
         </div>
 
@@ -27,7 +25,7 @@ function DesktopLayout({ selectedYear }) {
 
           {/* Name + Profession */}
           <div className="text-zinc-300 leading-snug">
-            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" target='_blank' className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
+            <a href="https://youtu.be/lCZlTveKg04?si=wIdCwAQwaqN7z1WA&t=6" className="text-black fade-in hover:no-underline" style={{ animationDelay: '0ms'}}>Mattias Lambert</a>
             {roles.map((role, index) => {
               const isActive = timeline.some(r =>
                 r.skill === role &&
@@ -51,7 +49,7 @@ function DesktopLayout({ selectedYear }) {
             const className = `${isActive ? "text-black" : "text-zinc-300"} flex fade-in`
             const content = <>{item.role}, {item.company}{item.url && <svg className={`mx-[2px] self-center h-[1em] w-[1em] transition-opacity ${isActive ? 'opacity-100' : 'opacity-0'}`} xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" strokeWidth="8" strokeLinejoin="miter" strokeLinecap="square" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg>}</>
               return item.url
-              ? <a href={item.url} rel="noopener noreferrer" className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>{content}</a>
+              ? <a href={item.url}  className={`${className} group hover:no-underline`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>{content}</a>
               : <p className={`${className} group`} style={{ animationDelay: `${(index * 100) + 300}ms` }} key={index}>{content}</p>
           })}
           </div>
